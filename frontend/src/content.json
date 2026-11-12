@@ -1,0 +1,401 @@
+{
+ "name": "ALM",
+ "tagline": [
+  "Invest",
+  "Impact",
+  "Innovative",
+  "Inspired"
+ ],
+ "nav": [
+  {
+   "path": "/who-we-are",
+   "label": "Who we are"
+  },
+  {
+   "path": "/what-we-do",
+   "label": "What we do"
+  },
+  {
+   "path": "/how-we-think",
+   "label": "How we think"
+  },
+  {
+   "path": "/why-join-us",
+   "label": "Why join us"
+  },
+  {
+   "path": "/media-centre",
+   "label": "Media centre"
+  },
+  {
+   "path": "/contact",
+   "label": "Contact"
+  }
+ ],
+ "who": {
+  "lead": "A modern investment house bridging Dubai and Kuala Lumpur, our vision is to set a new standard in how capital creates lasting value.",
+  "plan": {
+   "title": "ALM Vision 2030: our strategic plan",
+   "intro": "Vision 2030 sets out our ambition to build a leading investment platform connecting the Gulf and Southeast Asia. Four growth pillars guide where we invest our talent and capital.",
+   "pillars": [
+    "Building leadership in real assets and alternatives",
+    "Scaling active strategies and innovative products",
+    "Deepening institutional and sovereign partnerships",
+    "Growing our wealth and private-client franchise"
+   ]
+  },
+  "principles": [
+   {
+    "t": "We listen actively",
+    "a": "Every partnership starts with a clear understanding of our clients' ambitions, priorities and constraints.",
+    "b": "Our presence in two of the world's most dynamic financial hubs turns local insight into a global edge."
+   },
+   {
+    "t": "We act decisively",
+    "a": "Once goals are set, we move with conviction, pairing rigorous analysis with a long-term view.",
+    "b": "An entrepreneurial mindset helps us see beyond short-term noise to the opportunities that matter."
+   },
+   {
+    "t": "We deliver transparently",
+    "a": "We keep an honest, open dialogue with every client and partner.",
+    "b": "We are accountable to our clients, to our people and to the communities in which we invest."
+   }
+  ],
+  "exec": [
+   {
+    "n": "Full Name",
+    "r": "Chief Executive Officer (CEO)"
+   },
+   {
+    "n": "Full Name",
+    "r": "Deputy CEO"
+   },
+   {
+    "n": "Full Name",
+    "r": "Chief Investment Officer"
+   },
+   {
+    "n": "Full Name",
+    "r": "Head of Client Group"
+   },
+   {
+    "n": "Full Name",
+    "r": "Chief Financial Officer"
+   },
+   {
+    "n": "Full Name",
+    "r": "General Counsel & Secretary"
+   },
+   {
+    "n": "Full Name",
+    "r": "Chief Operating Officer"
+   },
+   {
+    "n": "Full Name",
+    "r": "Head of Human Resources"
+   }
+  ],
+  "board": [
+   {
+    "n": "Full Name",
+    "r": "Chair of the Board"
+   },
+   {
+    "n": "Full Name",
+    "r": "Chief Executive Officer (CEO)"
+   },
+   {
+    "n": "Full Name",
+    "r": "Independent director"
+   },
+   {
+    "n": "Full Name",
+    "r": "Independent director"
+   },
+   {
+    "n": "Full Name",
+    "r": "Director"
+   },
+   {
+    "n": "Full Name",
+    "r": "Director"
+   }
+  ],
+  "locations": [
+   {
+    "region": "Middle East",
+    "items": [
+     {
+      "c": "United Arab Emirates",
+      "city": "Dubai (headquarters)"
+     }
+    ]
+   },
+   {
+    "region": "Asia Pacific",
+    "items": [
+     {
+      "c": "Malaysia",
+      "city": "Kuala Lumpur"
+     }
+    ]
+   }
+  ],
+  "more": [
+   {
+    "t": "Our approach to stewardship",
+    "d": "We see stewardship as a core duty, essential to delivering sustainable returns.",
+    "to": "/what-we-do"
+   },
+   {
+    "t": "How we think",
+    "d": "Our edge comes from the depth of our research and the quality of our thinking.",
+    "to": "/how-we-think"
+   },
+   {
+    "t": "Why join us",
+    "d": "Help shape a new kind of investment house and explore open roles.",
+    "to": "/why-join-us"
+   }
+  ]
+ },
+ "pages": {
+  "what": {
+   "title": "What we do",
+   "lead": "We help institutions, families and individuals invest with purpose across asset classes and borders.",
+   "items": [
+    {
+     "t": "Real assets",
+     "d": "Real estate and infrastructure investments in high-growth urban markets.",
+     "i": "🏙️"
+    },
+    {
+     "t": "Active strategies",
+     "d": "Conviction-led portfolios in equities, credit and multi-asset.",
+     "i": "📈"
+    },
+    {
+     "t": "Private markets",
+     "d": "Direct and co-investment opportunities in growth-stage companies.",
+     "i": "🚀"
+    },
+    {
+     "t": "Wealth solutions",
+     "d": "Tailored portfolios and advisory for families and private clients.",
+     "i": "💼"
+    },
+    {
+     "t": "Stewardship",
+     "d": "Active ownership and engagement for long-term, responsible returns.",
+     "i": "🌱️"
+    },
+    {
+     "t": "Innovation",
+     "d": "Technology-enabled tools that make investing clearer and faster.",
+     "i": "💡"
+    }
+   ]
+  },
+  "think": {
+   "title": "How we think",
+   "lead": "Our edge comes from the depth of our research and the quality of our thinking.",
+   "items": [
+    {
+     "t": "Market outlook",
+     "d": "Our house view on growth, rates and risk across the Gulf and Asia.",
+     "i": "🧭"
+    },
+    {
+     "t": "Insights",
+     "d": "Research and commentary from our investment teams.",
+     "i": "📰"
+    },
+    {
+     "t": "Sustainable investing",
+     "d": "How we measure and deliver impact alongside financial return.",
+     "i": "🌍"
+    },
+    {
+     "t": "Legal & regulatory",
+     "d": "Important legal documents and regulatory information.",
+     "i": "⚖"
+    }
+   ],
+   "list": [
+    {
+     "t": "How do you choose investments?",
+     "m": "Research-led, conviction-based, risk-aware."
+    },
+    {
+     "t": "Who do you work with?",
+     "m": "Institutions, family offices and private clients."
+    },
+    {
+     "t": "How often do I get reports?",
+     "m": "Monthly summaries and detailed quarterly reviews."
+    }
+   ]
+  },
+  "join": {
+   "title": "Why join us",
+   "lead": "Help build a new kind of investment house. Inspired people, real impact.",
+   "items": [
+    {
+     "t": "Grow with purpose",
+     "d": "Meaningful work with room to lead early.",
+     "i": "🌟"
+    },
+    {
+     "t": "Global, connected teams",
+     "d": "Collaborate across Dubai, Kuala Lumpur and beyond.",
+     "i": "🤝"
+    },
+    {
+     "t": "Learning culture",
+     "d": "Mentoring, training and support for every stage of your career.",
+     "i": "🎓"
+    },
+    {
+     "t": "Open roles",
+     "d": "Explore current opportunities across investments, client and operations.",
+     "i": "🔓"
+    }
+   ],
+   "list": [
+    {
+     "t": "Investment Analyst",
+     "m": "Dubai · Full-time"
+    },
+    {
+     "t": "Portfolio Manager, Real Assets",
+     "m": "Kuala Lumpur · Full-time"
+    },
+    {
+     "t": "Client Relationship Manager",
+     "m": "Dubai · Full-time"
+    },
+    {
+     "t": "Compliance Officer",
+     "m": "Kuala Lumpur · Full-time"
+    }
+   ]
+  },
+  "media": {
+   "title": "Media centre",
+   "lead": "News, press releases and media contacts.",
+   "items": [
+    {
+     "t": "Press releases",
+     "d": "Announcements about our company, partnerships and products.",
+     "i": "📣"
+    },
+    {
+     "t": "In the news",
+     "d": "Coverage and commentary featuring ALM leaders.",
+     "i": "📰"
+    },
+    {
+     "t": "Brand assets",
+     "d": "Logos and guidelines for media and partners.",
+     "i": "🎨"
+    },
+    {
+     "t": "Media contact",
+     "d": "media@alm.example",
+     "i": "✉"
+    }
+   ],
+   "list": [
+    {
+     "t": "ALM unveils Vision 2030 strategic plan",
+     "m": "Press release"
+    },
+    {
+     "t": "ALM opens Kuala Lumpur office",
+     "m": "Press release"
+    },
+    {
+     "t": "Our CIO on the Gulf–Asia investment corridor",
+     "m": "In the news"
+    }
+   ]
+  }
+ },
+ "stats": [
+  {
+   "v": 12,
+   "s": "+",
+   "l": "Asset classes covered"
+  },
+  {
+   "v": 2,
+   "s": "",
+   "l": "Global financial hubs"
+  },
+  {
+   "v": 40,
+   "s": "+",
+   "l": "Investment professionals"
+  },
+  {
+   "v": 100,
+   "s": "%",
+   "l": "Commitment to transparency"
+  }
+ ],
+ "home": {
+  "hubs": [
+   {
+    "c": "Dubai",
+    "d": "Our headquarters: gateway to Gulf capital, sovereign partners and the fast-growing MENA region."
+   },
+   {
+    "c": "Kuala Lumpur",
+    "d": "Our Asian hub: access to Southeast Asia's growth, Islamic finance and regional industry leaders."
+   }
+  ],
+  "steps": [
+   {
+    "i": "👂",
+    "t": "Listen",
+    "d": "We define your goals, risk appetite and time horizon."
+   },
+   {
+    "i": "🔍",
+    "t": "Analyse",
+    "d": "Research-led screening of markets, sectors and managers."
+   },
+   {
+    "i": "🎯",
+    "t": "Invest",
+    "d": "Conviction-led allocation with disciplined risk control."
+   },
+   {
+    "i": "📊",
+    "t": "Report",
+    "d": "Clear, regular reporting. No surprises, full accountability."
+   }
+  ],
+  "insights": [
+   {
+    "tag": "Outlook",
+    "t": "Gulf and Asia: where capital is flowing next",
+    "d": "Our view on the corridors reshaping cross-border investment."
+   },
+   {
+    "tag": "Real assets",
+    "t": "Why urban infrastructure is a long-term anchor",
+    "d": "Cash-flow resilience in two of the world's busiest cities."
+   },
+   {
+    "tag": "Impact",
+    "t": "Measuring impact without losing returns",
+    "d": "A practical framework for purposeful investing."
+   }
+  ],
+  "cta": {
+   "t": "Ready to build something lasting?",
+   "d": "Talk to our team about partnership, investment or careers."
+  }
+ }
+}
