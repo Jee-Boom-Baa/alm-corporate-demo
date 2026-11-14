@@ -1,116 +1,42 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, Link, NavLink, Navigate, useLocation } from 'react-router-dom'
-import local from './content.json'
 
-const useContent = () => {
-  const [c, setC] = useState(local)
-  useEffect(() => { fetch('/api/content').then(r => r.ok ? r.json() : Promise.reject()).then(setC).catch(() => {}) }, [])
-  return c
-}
-const initials = n => n.split(' ').map(w => w[0]).join('').slice(0, 2)
-
-function Layout({ c, children }) {
-  const { pathname } = useLocation()
-  const [open, setOpen] = useState(false)
-  useEffect(() => {
-    window.scrollTo(0, 0); setOpen(false)
-    const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { threshold: .12 })
-    document.querySelectorAll('.card,.person,.pr,.step,.row,.sec>h2,.sec>h1').forEach(el => { el.classList.add('rv'); io.observe(el) })
-    return () => io.disconnect()
-  }, [pathname])
-  return <>
-    <a className="skip" href="#main-content">Skip to content</a>
-    <header className="hdr"><div className="wrap bar">
-      <Link to="/" className="mark">A<i>L</i>M</Link>
-      <button className="burger" onClick={() => setOpen(!open)} aria-label="Menu">☰</button>
-      <nav className={open ? 'open' : ''}>{c.nav.map(n => <NavLink key={n.path} to={n.path} onClick={() => setOpen(false)}>{n.label}</NavLink>)}</nav>
-    </div></header>
-    <main id="main-content">{children}</main>
-    <footer><div className="wrap foot">
-      <div><div className="mark light">A<i>L</i>M</div><p className="tag">{c.tagline.join(' · ')}</p></div>
-      <div><h4>Quick links</h4>{c.nav.map(n => <Link key={n.path} to={n.path}>{n.label}</Link>)}</div>
-      <div><h4>Legal</h4><a href="#">Legal documents</a><a href="#">Regulatory information</a><a href="#">Fraud information</a></div>
-    </div><div className="copy">© {new Date().getFullYear()} {c.name}. All rights reserved.</div></footer>
-  </>
-}
-
-const People = ({ list }) => <div className="grid people">{list.map((p, i) =>
-  <div className="person" key={i}><div className="av">{p.n === 'Full Name' ? 'ALM' : initials(p.n)}</div><h3>{p.n === 'Full Name' ? 'Profile coming soon' : p.n}</h3><p>{p.r}</p></div>)}</div>
-
-function Who({ c }) {
-  const w = c.who
-  return <>
-    <section className="hero"><img src="/logo.jpg" alt="ALM – Invest, Impact, Innovative, Inspired" /></section>
-    <div className="wrap">
-      <p className="crumb"><Link to="/">Home</Link> / Who we are</p>
-      <h1>Who we are</h1><p className="lead">{w.lead}</p>
-    </div>
-    <div className="sub"><div className="wrap">{[['strategic-plan','Our strategic plan'],['principles','Our Partnership Principles'],['governance','Our governance'],['locations','Our locations']].map(([id, t]) => <a key={id} href={'#' + id}>{t}</a>)}</div></div>
-    <section id="strategic-plan" className="wrap sec"><h2>{w.plan.title}</h2><p className="lead">{w.plan.intro}</p>
-      <div className="grid four">{w.plan.pillars.map((p, i) => <div className="card pillar" key={i}><span>0{i + 1}</span><p>{p}</p></div>)}</div></section>
-    <section id="principles" className="navy"><div className="wrap sec"><h2>Our Partnership Principles</h2>
-      <p className="lead">Our commitment to our clients is reflected in the ALM Partnership Principles.</p>
-      <div className="grid three">{w.principles.map((p, i) => <div className="pr" key={i}><h3>{p.t}</h3><p>{p.a}</p><p>{p.b}</p></div>)}</div></div></section>
-    <section id="governance" className="wrap sec"><h2>Executive Board</h2><People list={w.exec} /><h2 style={{ marginTop: 56 }}>Board of Directors</h2><People list={w.board} /></section>
-    <section id="locations" className="wrap sec"><h2>Our locations</h2>
-      <p className="lead">ALM operates from two of the world's leading financial hubs.</p>
-      {w.locations.map(r => <div key={r.region}><h3 className="reg">{r.region}</h3><div className="grid three">{r.items.map(l => <div className="card" key={l.c}><h4>{l.c}</h4><p>{l.city}</p><a href="#">ALM website</a></div>)}</div></div>)}</section>
-    <section className="wrap sec"><h2>Find out more</h2><div className="grid three">{w.more.map(m => <Link to={m.to} className="card more" key={m.t}><h4>{m.t}</h4><p>{m.d}</p></Link>)}</div></section>
-  </>
-}
-
-function Counter({ v, s }) {
-  const ref = useRef(), [n, setN] = useState(0)
-  useEffect(() => {
-    const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect()
-      const t0 = performance.now(), f = t => { const p = Math.min((t - t0) / 1400, 1); setN(Math.round(v * (1 - Math.pow(1 - p, 3)))); p < 1 && requestAnimationFrame(f) }; requestAnimationFrame(f) })
-    io.observe(ref.current); return () => io.disconnect()
-  }, [v])
-  return <b ref={ref}>{n}{s}</b>
-}
-
-const Page = ({ d }) => <div className="wrap sec"><h1>{d.title}</h1><p className="lead">{d.lead}</p>
-  <div className="grid three">{d.items.map(i => <div className="card" key={i.t}><div className="ic">{i.i}</div><h4>{i.t}</h4><p>{i.d}</p></div>)}</div>
-  {d.list && <div className="rows">{d.list.map(r => <div className="row" key={r.t}><div><h4>{r.t}</h4><p>{r.m}</p></div><span>→</span></div>)}</div>}</div>
-
-function Home({ c }) {
-  const h = c.home, p = c.pages.what
-  return <>
-    <section className="hero heroH"><img src="/logo.jpg" alt="ALM" /></section>
-    <div className="wrap ctr herotxt"><h1>Capital with <em>purpose</em>. Growth with <em>vision</em>.</h1><p className="lead">{c.who.lead}</p>
-      <div className="btns"><Link className="btn" to="/who-we-are">Discover who we are</Link><Link className="btn ghost" to="/contact">Talk to us</Link></div></div>
-    <section className="stats"><div className="wrap">{c.stats.map(s => <div key={s.l}><Counter v={s.v} s={s.s} /><span>{s.l}</span></div>)}</div></section>
-    <section className="wrap sec"><h2>What we do</h2><div className="grid three">{p.items.map(i => <div className="card" key={i.t}><div className="ic">{i.i}</div><h4>{i.t}</h4><p>{i.d}</p></div>)}</div></section>
-    <section className="navy"><div className="wrap sec"><h2>Two hubs. One global outlook.</h2>
-      <div className="grid hubs">{h.hubs.map(x => <div className="hub" key={x.c}><h3>{x.c}</h3><p>{x.d}</p></div>)}</div></div></section>
-    <section className="wrap sec"><h2>How we work with you</h2><div className="grid four">{h.steps.map((s, i) => <div className="step" key={s.t}><div className="ic">{s.i}</div><small>0{i + 1}</small><h4>{s.t}</h4><p>{s.d}</p></div>)}</div></section>
-    <section className="wrap sec"><h2>Latest insights</h2><div className="grid three">{h.insights.map(i => <Link to="/how-we-think" className="card more" key={i.t}><span className="chip">{i.tag}</span><h4>{i.t}</h4><p>{i.d}</p></Link>)}</div></section>
-    <section className="cta"><div className="wrap ctr"><h2>{h.cta.t}</h2><p>{h.cta.d}</p><Link className="btn gold" to="/contact">Get in touch</Link></div></section></>
-}
-
-function Contact() {
-  const [f, setF] = useState({ name: '', email: '', message: '' }), [st, setSt] = useState('')
-  const send = async e => { e.preventDefault(); setSt('Sending…')
-    try { const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(f) }); if (!r.ok) throw 0; setSt('Thank you. We will be in touch shortly.'); setF({ name: '', email: '', message: '' }) }
-    catch { setSt('Could not send. Make sure the backend is running.') } }
-  return <div className="wrap sec"><h1>Contact us</h1><p className="lead">Partnership, investment or careers: tell us how we can help.</p>
-    <form className="form" onSubmit={send}>
-      <input required placeholder="Full name" value={f.name} onChange={e => setF({ ...f, name: e.target.value })} />
-      <input required type="email" placeholder="Email" value={f.email} onChange={e => setF({ ...f, email: e.target.value })} />
-      <textarea required rows="5" placeholder="Message" value={f.message} onChange={e => setF({ ...f, message: e.target.value })} />
-      <button className="btn" disabled={st === 'Sending…'}>{st === 'Sending…' ? 'Sending…' : 'Send message'}</button><p>{st}</p></form></div>
-}
-
-export default function App() {
-  const c = useContent()
-  return <Layout c={c}><Routes>
-    <Route path="/" element={<Home c={c} />} />
-    <Route path="/who-we-are" element={<Who c={c} />} />
-    <Route path="/what-we-do" element={<Page d={c.pages.what} />} />
-    <Route path="/how-we-think" element={<Page d={c.pages.think} />} />
-    <Route path="/why-join-us" element={<Page d={c.pages.join} />} />
-    <Route path="/media-centre" element={<Page d={c.pages.media} />} />
-    <Route path="/contact" element={<Contact />} />
-    <Route path="*" element={<Navigate to="/" />} />
-  </Routes></Layout>
-}
+const nav = [
+  ['/about','About us'], ['/businesses','Our businesses'], ['/markets','Markets'], ['/vision','Vision & mission'], ['/contact','Contact']
+]
+const companies = [
+  {name:'ALM Realty', area:'Real estate & investments', desc:'Real estate activities and investment opportunities across Malaysia, India and the UAE.', image:'/logos/alm-realty.png'},
+  {name:'ALM Central Mart', area:'Retail', desc:'A retail business serving customers through two retail units in Sharjah, UAE.', image:'/logos/central-mart.png'},
+  {name:'Helio Power', area:'Renewable energy', desc:'Solar energy initiatives focused on supporting a more sustainable energy future.', image:'/logos/helio-power.png'},
+  {name:'Media Frontlines', area:'Media & broadcasting', desc:'Media and broadcasting activities within the wider ALM group.', image:'/logos/media-frontlines.png'},
+  {name:'Zevanta Xpress', area:'Logistics & shipping', desc:'Logistics and supply-chain services connecting markets and supporting cross-border trade.', image:'/logos/zevanta-xpress.png'},
+  {name:'ALM Textiles', area:'Textile manufacturing', desc:'Textile manufacturing as part of the group’s diversified industrial activities.', image:'/logos/alm-textiles.png'},
+  {name:'Zaravel Gulf Trading', area:'International trading', desc:'International trading that connects countries, suppliers and commercial opportunities.', image:'/logos/zaravel.png'},
+  {name:'ALM Digital Technologies', area:'Technology & digital solutions', desc:'Technology and digital solutions supporting modern business operations.', image:'/logos/alm-digital.png'},
+  {name:'Apparel Exports', area:'Apparel exports', desc:'Apparel export activities serving the UK and European markets.'}
+]
+const offices = [
+  {country:'India', city:'New Delhi', address:'108 RB House, Nizamuddin West, New Delhi 110013, India'},
+  {country:'United Arab Emirates', city:'Dubai', address:'203B Naif Business Center, Gold Souq, Al Deira, Dubai, UAE'},
+  {country:'Malaysia', city:'Kuala Lumpur', address:'Paradize Business Center, Jalan Tengah, KLCC, Malaysia'}
+]
+function Header(){const [open,setOpen]=useState(false);const {pathname}=useLocation();useEffect(()=>setOpen(false),[pathname]);return <header className="hdr"><div className="wrap bar"><Link to="/" className="mark">A<i>L</i>M</Link><button className="burger" onClick={()=>setOpen(!open)} aria-label="Toggle menu">☰</button><nav className={open?'open':''}>{nav.map(([p,t])=><NavLink key={p} to={p}>{t}</NavLink>)}</nav></div></header>}
+function LogoMarquee(){return <section className="logo-marquee"><div className="wrap marquee-head"><p className="eyebrow">The ALM ecosystem</p><h2>Distinct businesses. Shared ambition.</h2><p>Explore the companies and capabilities that contribute to our growing international portfolio.</p></div><div className="marquee-window"><div className="marquee-track">{[...companies.filter(c=>c.image),...companies.filter(c=>c.image)].map((c,i)=><div className="marquee-item" key={c.name+'-'+i}><img src={c.image} alt={c.name}/><span>{c.name}</span></div>)}</div></div></section>}
+function Footer(){return <footer><div className="wrap foot"><div><div className="mark light">A<i>L</i>M</div><p className="tag">Commerce Connect Countries</p><p>ALM Global Ventures — a diversified global enterprise.</p></div><div><h4>Explore</h4>{nav.map(([p,t])=><Link key={p} to={p}>{t}</Link>)}</div><div><h4>Our offices</h4>{offices.map(o=><p key={o.country}>{o.city}, {o.country}</p>)}</div></div><div className="copy">© {new Date().getFullYear()} ALM Global Ventures. All rights reserved.</div></footer>}
+function Shell({children}){const {pathname}=useLocation();useEffect(()=>{window.scrollTo(0,0)},[pathname]);return <><a className="skip" href="#main-content">Skip to content</a><Header/><main id="main-content">{children}</main><Footer/></>}
+function PageIntro({eyebrow,title,lead}){return <div className="page-intro"><div className="wrap"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lead">{lead}</p></div></div>}
+function Home(){const [active,setActive]=useState(0);useEffect(()=>{const timer=setInterval(()=>setActive(v=>(v+1)%companies.length),3500);return()=>clearInterval(timer)},[]);const c=companies[active];return <>
+  <section className="hero heroH"><img src="/logo.jpg" alt="ALM Global Ventures"/></section>
+  <div className="wrap ctr herotxt"><p className="eyebrow">A diversified global enterprise</p><h1>Commerce <em>Connects</em> Countries.</h1><p className="lead">ALM Global Ventures is a diversified international business enterprise connecting markets through global trading, textiles manufacturing, retail, renewable energy, real estate, apparel exports, logistics and digital capabilities. Across the Middle East, Asia and Europe, we bring together specialist businesses with a shared commitment to trusted relationships, practical execution and sustainable value.</p><div className="btns"><Link className="btn" to="/about">Discover ALM</Link><Link className="btn ghost" to="/businesses">Explore our businesses</Link></div></div>
+  <section className="stats"><div className="wrap"><div><b>7+</b><span>Business sectors</span></div><div><b>3</b><span>Office locations</span></div><div><b>6+</b><span>Markets connected</span></div><div><b>1</b><span>Global outlook</span></div></div></section>
+  <section className="wrap sec"><div className="section-head"><p className="eyebrow">Our group companies</p><h2>One group. Diverse capabilities.</h2><p className="lead">Meet the businesses that make up the ALM Global Ventures ecosystem.</p></div><div className="rotator card"><div className="rotator-logo"><img src={c.image||'/logo.jpg'} alt={c.name}/></div><div className="rotator-copy"><span className="chip">{String(active+1).padStart(2,'0')} / {String(companies.length).padStart(2,'0')}</span><h3>{c.name}</h3><p className="gold-text">{c.area}</p><p>{c.desc}</p><div className="rotator-controls"><button className="round" onClick={()=>setActive((active+companies.length-1)%companies.length)} aria-label="Previous company">←</button><button className="round" onClick={()=>setActive((active+1)%companies.length)} aria-label="Next company">→</button></div><div className="dots">{companies.map((x,i)=><button key={x.name} className={i===active?'dot active':'dot'} onClick={()=>setActive(i)} aria-label={`Show ${x.name}`}/>)}</div></div></div></section>
+  <LogoMarquee/>
+  <section className="navy"><div className="wrap sec"><p className="eyebrow">Where we operate</p><h2>Connecting opportunities across borders.</h2><div className="grid three">{['Middle East','Asia','Europe'].map((x,i)=><div className="hub" key={x}><h3>{x}</h3><p>{['United Arab Emirates','India, Malaysia and Singapore','United Kingdom and European markets'][i]}</p></div>)}</div></div></section>
+  <section className="wrap sec ctr"><h2>Let’s build meaningful connections.</h2><p className="lead">We welcome conversations with business partners, suppliers and customers.</p><Link className="btn" to="/contact">Contact our team</Link></section>
+ </>}
+function About(){return <><PageIntro eyebrow="About ALM" title="A diversified enterprise with a global outlook." lead="ALM Global Ventures is an international business enterprise connecting countries, industries and opportunities through a diversified portfolio of businesses."/><section className="wrap sec"><div className="grid two"><div><p className="eyebrow">Who we are</p><h2>Commerce Connect Countries</h2></div><p className="lead">With business interests across the Middle East, Asia and Europe, ALM brings together capabilities in global trading, textiles manufacturing, retail, solar energy, real estate, apparel exports, logistics and technology.</p></div><div className="about-detail grid two"><article><p className="eyebrow">How we create value</p><h2>Bringing complementary capabilities together.</h2><p>Our portfolio is designed around the connections between sourcing, production, distribution, retail and market access. This diversified approach allows each business to contribute its specialist capabilities while sharing a wider international outlook.</p></article><article className="detail-panel"><h3>Our business approach</h3><ul><li>Build trusted relationships with customers, suppliers and partners.</li><li>Understand the needs and opportunities of each market.</li><li>Develop resilient operations and responsible long-term growth.</li><li>Connect expertise across our group companies where it adds value.</li></ul></article></div><div className="values-strip"><div><b>01</b><h3>Diversified</h3><p>Businesses across complementary sectors.</p></div><div><b>02</b><h3>Connected</h3><p>Relationships spanning countries and markets.</p></div><div><b>03</b><h3>Forward-looking</h3><p>Building sustainable long-term value.</p></div></div></section></>}
+function Businesses(){return <><PageIntro eyebrow="Our portfolio" title="Businesses built to connect markets." lead="Our group companies operate across a range of sectors, bringing together local knowledge and international opportunities."/><section className="wrap sec"><div className="grid three">{companies.map((c,i)=><article className="card company-card" key={c.name}><div className="company-logo">{c.image?<img src={c.image} alt={c.name}/>:<span>{c.name}</span>}</div><span className="chip">{c.area}</span><h3>{c.name}</h3><p>{c.desc}</p></article>)}</div><div className="business-note"><p className="eyebrow">A connected portfolio</p><h2>From ideas and sourcing to products and delivery.</h2><p>Across the portfolio, our businesses touch multiple stages of the commercial journey: trading relationships, textile and apparel activity, retail operations, property interests, renewable energy initiatives, logistics and digital capabilities.</p><Link className="btn" to="/markets">Explore our markets</Link></div></section></>}
+function Markets(){return <><PageIntro eyebrow="Our footprint" title="Local presence. International perspective." lead="ALM Global Ventures connects business opportunities across the Middle East, Asia and Europe."/><section className="wrap sec"><div className="grid three">{[{t:'Middle East',d:'United Arab Emirates — with business activity in Dubai and Sharjah.'},{t:'Asia',d:'India, Malaysia and Singapore.'},{t:'Europe',d:'United Kingdom and wider European markets, including apparel exports.'}].map(x=><div className="card market-card" key={x.t}><div className="ic">◎</div><h3>{x.t}</h3><p>{x.d}</p></div>)}</div><div className="market-story"><p className="eyebrow">How we connect</p><h2>Cross-border perspective, local understanding.</h2><p>Our stated markets span the Middle East, Asia and Europe. The office locations in India, the UAE and Malaysia provide important points of contact for conversations with business partners and stakeholders.</p><div className="market-tags"><span>United Arab Emirates</span><span>India</span><span>Malaysia</span><span>Singapore</span><span>United Kingdom</span><span>European markets</span></div></div><h2 className="address-title">Our office locations</h2><div className="grid three">{offices.map(o=><div className="card" key={o.country}><span className="chip">{o.country}</span><h3>{o.city}</h3><p>{o.address}</p></div>)}</div></section></>}
+function Vision(){return <><PageIntro eyebrow="Our direction" title="A shared vision for sustainable value." lead="Our vision and mission guide how we grow our businesses, build partnerships and connect opportunities across markets."/><section className="wrap sec"><div className="grid two vision-grid"><article className="vision-panel"><span>OUR VISION</span><h2>To be a trusted international enterprise connecting countries, industries and opportunities.</h2></article><article className="vision-panel light-panel"><span>OUR MISSION</span><h2>To build diversified businesses, strengthen partnerships and create sustainable value.</h2></article></div><div className="section-head"><h2>Our guiding principles</h2></div><div className="grid three">{[{t:'Partnership',d:'Building lasting relationships based on trust and shared opportunity.'},{t:'Responsible growth',d:'Developing businesses with a long-term and sustainable outlook.'},{t:'Global connection',d:'Bringing markets, people and industries closer together.'}].map(x=><div className="card" key={x.t}><h3>{x.t}</h3><p>{x.d}</p></div>)}</div><div className="business-note"><p className="eyebrow">Our commitment</p><h2>Growth with purpose. Partnerships with perspective.</h2><p>We aim to build trusted relationships, identify meaningful opportunities and develop businesses with a long-term view. Our vision is to connect countries, industries and opportunities through a diversified international enterprise.</p><Link className="btn" to="/contact">Connect with ALM</Link></div></section></>}
+function Contact(){const [f,setF]=useState({name:'',email:'',message:''}),[status,setStatus]=useState('');const send=async e=>{e.preventDefault();setStatus('Sending…');try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(f)});if(!r.ok)throw Error();setStatus('Thank you. Your enquiry has been received.');setF({name:'',email:'',message:''})}catch{setStatus('Unable to send right now. Please contact one of our offices directly.')}};return <><PageIntro eyebrow="Get in touch" title="Let’s start a conversation." lead="For business enquiries, partnerships and general information, please contact ALM Global Ventures."/><section className="wrap sec contact-layout"><div><h2>Our offices</h2>{offices.map(o=><div className="office" key={o.country}><span className="chip">{o.country}</span><h3>{o.city}</h3><p>{o.address}</p></div>)}</div><div><h2>Send an enquiry</h2><form className="form" onSubmit={send}><input required placeholder="Full name" value={f.name} onChange={e=>setF({...f,name:e.target.value})}/><input required type="email" placeholder="Email address" value={f.email} onChange={e=>setF({...f,email:e.target.value})}/><textarea required minLength="10" rows="6" placeholder="How can we help?" value={f.message} onChange={e=>setF({...f,message:e.target.value})}/><button className="btn" disabled={status==='Sending…'}>Send enquiry</button><p>{status}</p></form></div></section></>}
+export default function App(){return <Shell><Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/businesses" element={<Businesses/>}/><Route path="/markets" element={<Markets/>}/><Route path="/vision" element={<Vision/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes></Shell>}
