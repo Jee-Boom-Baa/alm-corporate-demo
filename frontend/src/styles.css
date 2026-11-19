@@ -16,6 +16,22 @@
 @media(max-width:760px){.logo-marquee{padding:54px 0}.marquee-item{width:180px;height:138px;flex-basis:180px}.marquee-item img{height:88px}.company-logo{height:165px}.business-note,.market-story{padding:30px 24px;margin-top:48px}.heroH img{height:260px;padding:8px}.about-detail{margin-top:38px}}
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
+/* Full business profiles */
+.business-profile{padding-bottom:64px}
+.profile-section{margin-bottom:64px}
+.profile-service h3{font-size:1.2rem;margin:0 0 12px}
+.profile-service ul{padding-left:20px;margin:0;color:var(--muted);line-height:1.9}
+.profile-presence{padding:36px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.profile-countries{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0;margin:24px 0 0}
+.profile-countries li{padding:10px 18px;border:1px solid var(--line);border-radius:24px;color:var(--navy)}
+.profile-purpose .vision-panel h2{font-size:1.6rem;margin:0 0 20px}
+.profile-purpose p{font-size:1rem;line-height:1.9;color:#d3d9e4;margin:0}
+.profile-purpose .light-panel p{color:var(--navy)}
+.profile-signature{text-align:center;margin-top:52px}
+.profile-signature h2{font-size:1.5rem;margin-bottom:10px}
+.profile-signature p{color:var(--gold);font-weight:700}
+@media(max-width:760px){.business-profile{padding-bottom:44px}.profile-section{margin-bottom:40px}.profile-presence{padding:24px}.profile-purpose{grid-template-columns:1fr}}
+
 /* Business and market dropdown navigation */
 .bar{position:relative}
 .nav-item{position:relative;display:flex;align-items:center}
